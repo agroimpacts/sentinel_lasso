@@ -8,5 +8,5 @@ This repo provides the protocol running lasso regression on calibrated [Sentinel
 
 * mosaic images of the same dates
 * resample images in time series
-* apply iterative guided filter, which observed to have less shifts than Lee filter, and omitted the gradient reversal phenomenon
+* apply iterative guided filter, which observed to have less shifts than Lee filter, and omitted the gradient distortion phenomenon
 * apply pixel-wise lasso regression
