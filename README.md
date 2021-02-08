@@ -1,4 +1,4 @@
-# Lasso Regression on Sentinel Data
+# Lasso Regression on Sentinel-1
 
 Boka Luo
 
