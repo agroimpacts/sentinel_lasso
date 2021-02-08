@@ -17,7 +17,6 @@ def boxfilter(I, r):
     return bf
 
 
-
 def guidefilter(I, P, r, eps):
     """
     This function applies guided filter to the input image P using a guide Image I.

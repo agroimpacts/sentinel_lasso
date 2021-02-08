@@ -12,7 +12,6 @@ from get_mosaic import get_mosaic
 from utils import *
 
 
-
 def run_it(config):
 
     ## Params
@@ -67,7 +66,7 @@ def run_it(config):
         if src[0] in finished:
             src_to_mosaic_all.remove(src)
 
-    # multicore(get_mosaic, src_to_mosaic_all, 4)
+    multicore(get_mosaic, src_to_mosaic_all, 4)
     # for m in src_to_mosaic_all:
     #     get_mosaic(m)
     # # get_mosaic(src_to_mosaic_all[0])
@@ -88,7 +87,6 @@ def run_it(config):
     finished = ["_".join(m.split("_")[:-1]) + ".tif" for m in os.listdir(params["dir_ready"].format(aoi, aoi, "VV"))]
     file_ls = [m for m in file_ls if m not in finished]
     print("Number of files left for preprocessing", len(file_ls))
-
 
     # parallelize preprocess
     multicore(preprocess, file_ls, 4)

@@ -22,7 +22,7 @@ Lasso:
 AWS:
   region: us-east-1
   access_key_id:
-  secret_access_key: 
+  secret_access_key:
   bucket: activemapper
   prefix: planet/
   prefix_label: labels_fix/

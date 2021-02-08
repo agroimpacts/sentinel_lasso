@@ -6,9 +6,8 @@ import numpy as np
 from rasterio.warp import reproject, Resampling
 from rasterio.fill import fillnodata
 
+
 buffer = 80
-
-
 def get_mosaic(src_files_to_mosaic, config="./config.yaml"):
 
     with open(config, "r") as config:

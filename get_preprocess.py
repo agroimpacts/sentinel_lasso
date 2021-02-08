@@ -1,14 +1,9 @@
 import os
 import yaml
 import pickle
-
 import rasterio
-
-import numpy as np
 from rasterio.warp import reproject, Resampling
-from rasterio.fill import fillnodata
-
-# from utils import *
+import numpy as np
 from guided_filter import guidefilter_ite2, guidefilter
 
 
@@ -53,7 +48,6 @@ def preprocess(file, config="./config.yaml"):
             src_transform = src.transform
             src_crs = src.crs
 
-
         # Filter
         print("start filtering")
         I = np.where(np.isnan(img), -99, img)
@@ -62,15 +56,11 @@ def preprocess(file, config="./config.yaml"):
         out_img = np.where(np.isnan(img), img, out_img)
         del I, img
 
-
-
-
         # # Write preprocessed images into narray
         polarization = polarizations[i]
         dir_out = params["dir_ready"].format(aoi, aoi, polarization)
         if not os.path.isdir(dir_out):
             os.mkdir(dir_out)
-
 
         out_name = "{}_{}.npy".format(file.split(".")[0], polarization)
 
