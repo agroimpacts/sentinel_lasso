@@ -77,10 +77,12 @@ def run_it(config):
     print("Preprocess start:", datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
     file_ls = [m for m in os.listdir(dir_img) if m.endswith(".tif")]
 
+    # save metadata
+    with rasterio.open(os.path.join(dir_img, file_ls[0]))as dst:
+        dst_meta = dst.meta
     file_meta = dir_meta.format(aoi)
-    # load metadata
-    with open(file_meta, "rb") as dst:
-        dst_meta = pickle.load(dst)
+    with open(file_meta, "wb") as file:
+        pickle.dump(dst_meta, file)
 
 
     print(len(file_ls))
@@ -90,8 +92,6 @@ def run_it(config):
 
     # parallelize preprocess
     multicore(preprocess, file_ls, 4)
-    # for file in file_ls:
-    #     preprocess(file)
 
     print("lasso start:", datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
 
