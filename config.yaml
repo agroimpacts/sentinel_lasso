@@ -17,7 +17,7 @@ Lasso:
 
   dir_ready: /home/boka/Documents/AgrMapping/Sentinel/Aoi_{}/Aoi_{}_{}_ready
   dir_meta: '{}/Meta_aoi{}.pkl'
-  dir_out: /home/boka/Documents/AgrMapping/Sentinel/Aoi_12/Lasso/Coefs_Aoi{}_{}.tif
+  dir_out: /home/boka/Documents/AgrMapping/Sentinel/Aoi_{}/Lasso/Coefs_Aoi{}_{}.tif
 
 AWS:
   region: us-east-1
