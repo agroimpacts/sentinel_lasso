@@ -109,7 +109,7 @@ def run_it(config):
 
     # Write tif
     for i in range(len(lasso_coefs)):
-        out_file = params["dir_out"].format(aoi, aoi, i)
+        out_file = params["dir_out"].format(aoi, i)
         with rasterio.open(out_file, "w", **dst_meta) as dst:
             dst.write(lasso_coefs[i, :, :, :])
 
