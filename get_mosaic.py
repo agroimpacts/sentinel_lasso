@@ -80,7 +80,7 @@ def get_mosaic(src_files_to_mosaic, config="./config.yaml"):
                 out[i,:,:] = toFill
             
 
-            del toFill, mosaic
+            del toFill, mosaic, mask
 
     else:
         with rasterio.open(os.path.join(dir_raw, out_name), "r") as src:
@@ -109,10 +109,11 @@ def get_mosaic(src_files_to_mosaic, config="./config.yaml"):
                       'constant', constant_values=1)[0 + off_down: 0 + off_down + h, 0 + off_right: 0 + off_right + w]
         for i in range(len(out)):
             out[i, :, :] = np.where(mask == 1, out[i, :, :], np.nan)
+        del mask
     else:
         pass
 
-    del mask
+    
 
     ## Write out images
     out_meta = src_to_mosaic[0].meta.copy()
