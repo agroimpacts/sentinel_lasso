@@ -20,11 +20,11 @@ Lasso:
   dir_out: /home/boka/Documents/AgrMapping/Sentinel/Aoi_{}/Lasso/Coefs_Aoi{}_{}.tif
 
 Cluster:
-  dir_data: E:/Projects/AgrMapping/Sentinel
+  dir_data: /home/boka/Documents/AgrMapping/Sentinel
   data_col: dir_img
 
   # train
-  dir_train: E:/Projects/AgrMapping/Sentinel
+  dir_train: /home/boka/Documents/AgrMapping/Sentinel
   catalog_train: catalog_test_train.csv
   sample_rate: 0.003
   cluster_number: 20
