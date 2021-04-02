@@ -19,6 +19,33 @@ Lasso:
   dir_meta: '{}/Meta_aoi{}.pkl'
   dir_out: /home/boka/Documents/AgrMapping/Sentinel/Aoi_{}/Lasso/Coefs_Aoi{}_{}.tif
 
+Cluster:
+  dir_data: E:/Projects/AgrMapping/Sentinel
+  data_col: dir_img
+
+  # train
+  dir_train: E:/Projects/AgrMapping/Sentinel
+  catalog_train: catalog_test_train.csv
+  sample_rate: 0.003
+  cluster_number: 20
+
+  # predict
+  ## provided modes are "single", "merge_row", and " merge_all"
+  mode: merge_all
+  dir_model: /home/boka/Documents/AgrMapping/Sentinel/model.sav
+  dir_predict: /home/boka/Documents/AgrMapping/Sentinel/test_code
+  fn_predict: kmean_{}.tif
+  catalog_predict: catalog_test_predict.csv
+  ## column in catalog specifying tile row indices, only applicable when mode is "merge_row"
+  tilerow_index_col: tile_row
+
+  # reclass
+  dir_reclass: /home/boka/Documents/AgrMapping/Sentinel/test_reclass
+  fn_reclass: reclass_{}.tif
+  merge_reclassed: True
+  reclass_values: [16]
+  fn_merge: test_merged.tif
+
 AWS:
   region: us-east-1
   access_key_id:
