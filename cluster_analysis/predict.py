@@ -4,6 +4,7 @@ import pickle
 import rasterio
 from rasterio.merge import merge
 import pandas as pd
+import numpy as np
 
 from utils import *
 
@@ -33,7 +34,7 @@ def predict(params, model=None):
             src_img = rasterio.open(dir_img)
 
             meta = src_img.meta
-            img = src_img.read()
+            img = np.nan_to_num(src_img.read(), -999)
             _, h, w = img.shape
             img = get_flat(img)
             # predict and write into tif

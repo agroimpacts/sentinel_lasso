@@ -7,6 +7,7 @@ import numpy as np
 import rasterio
 import pandas as pd
 from sklearn.cluster import KMeans
+from rasterio.windows import Window
 
 from utils import *
 
@@ -30,12 +31,50 @@ def train(params):
     # build dataset
     print("Building dataset for train")
     data = []
-    for dir_img in dirs_img:
-        dir_img = dir_img if os.path.isabs(dir_img) else os.path.join(dir_data, dir_img)
+
+    if len(dirs_img) == 1:
+        dir_img = dirs_img[0]
         print(dir_img)
         src = rasterio.open(dir_img)
-        lasso = random.sample(get_flat(src.read()).tolist(), int(src.height * src.width * sample_rate))
-        data.extend(lasso)
+        height = src.height
+        width = src.width
+
+        chip_size = 2000
+        # if img smaller than chip_size
+        if src.height < chip_size or src.width < chip_size:
+            data.extend(random.sample(get_flat(src.read()).tolist(),
+                                      int(src.height * src.width * sample_rate)))
+        ## else take samples from sub-grids
+        else:
+            std_img = np.nanstd(src.read())  # std_img as baseline
+            col_off = 0
+            while col_off + chip_size < width:
+                row_off = 0
+                while row_off + chip_size < height:
+                    img_chip = src.read(window=Window(col_off, row_off, chip_size, chip_size))
+                    # std_chip larger than std_img will get more samples and vise versa
+                    sample_rate_chip = np.nanstd(img_chip) * sample_rate / std_img
+
+                    img_chip = np.nan_to_num(img_chip, -999) # incase there's any nan
+                    try:
+                        lasso = random.sample(get_flat(img_chip).tolist(),
+                                          int(min(img_chip.size * sample_rate_chip, 1)))
+                        data.extend(lasso)
+                    except:
+                        pass
+
+                    row_off += chip_size
+                col_off += chip_size
+
+
+    else:
+
+        for dir_img in dirs_img:
+            # dir_img = dir_img if os.path.isabs(dir_img) else os.path.join(dir_data, dir_img)
+            print(dir_img)
+            src = rasterio.open(dir_img)
+            lasso = random.sample(np.nan_to_num(get_flat(src.read()), -999).tolist(), int(src.height * src.width * sample_rate))
+            data.extend(lasso)
 
     #         meta = src.meta
     data = np.array(data)
