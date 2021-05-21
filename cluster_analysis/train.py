@@ -58,7 +58,7 @@ def train(params):
                     img_chip = np.nan_to_num(img_chip, -999) # incase there's any nan
                     try:
                         lasso = random.sample(get_flat(img_chip).tolist(),
-                                          int(min(img_chip.size * sample_rate_chip, 1)))
+                                          int(min(img_chip.size * sample_rate_chip, img_chip.size)))
                         data.extend(lasso)
                     except:
                         pass
