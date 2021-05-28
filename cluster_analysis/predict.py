@@ -42,14 +42,14 @@ def predict(params, model=None):
             out = model.predict(img).reshape((h, w))
 
             meta.update({
-                'dtype': 'int32',
+                'dtype': 'int8',
                 'count': 1,
             })
             fn_img = os.path.split(dir_img)[-1]
             with rasterio.open(os.path.join(dir_out, fn_out.format(fn_img)),
                                "w",
                                **meta) as dst:
-                dst.write(out, 1)
+                dst.write(out.astype(meta['dtype']), 1)
 
     elif mode == 'merge_row':
         row_ids_col = params['tilerow_index_col']
@@ -75,7 +75,7 @@ def predict(params, model=None):
             out = model.predict(lasso_merged).reshape((h, w))
 
             meta.update({
-                'dtype': 'int32',
+                'dtype': 'int8',
                 'count': 1,
                 'height': h,
                 'width': w,
@@ -85,7 +85,7 @@ def predict(params, model=None):
             with rasterio.open(os.path.join(dir_out, fn_out.format(idx)),
                                "w",
                                **meta) as dst:
-                dst.write(out, 1)
+                dst.write(out.astype(meta['dtype']), 1)
 
             print("Finish prediction on row: {}".format(idx))
 
@@ -109,7 +109,7 @@ def predict(params, model=None):
         out = model.predict(lasso_merged).reshape((h, w))
 
         meta.update({
-            'dtype': 'int32',
+            'dtype': 'int8',
             'count': 1,
             'height': h,
             'width': w,
@@ -119,7 +119,7 @@ def predict(params, model=None):
         with rasterio.open(os.path.join(dir_out, fn_out.format(0)),
                            "w",
                            **meta) as dst:
-            dst.write(out, 1)
+            dst.write(out.astype(meta['dtype']), 1)
 
         print("Finish prediction on: {}".format(fn_out.format(0)))
 
