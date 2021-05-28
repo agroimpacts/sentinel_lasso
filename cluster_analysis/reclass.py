@@ -27,6 +27,9 @@ def reclass(params):
 
         # reclass
         out = np.where(eval(reclass_statement), 1, 0)
+        arr = out > 0
+        out = remove_small_holes(arr, area_threshold=3000, connectivity=2)
+        out = remove_small_objects(out, min_size=2000, in_place=False, connectivity=1).astype(int)
 
         with rasterio.open(os.path.join(dir_reclass, (fn_reclass.format(data.split(".")[0]))), "w", **meta) as dst:
             dst.write(out)
