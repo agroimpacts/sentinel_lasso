@@ -3,7 +3,7 @@ import click
 import sys
 import os
 import glob
-sys.path.append('../image_utilities')
+# sys.path.append('../image_utilities')
 
 from utils import *
 from mask_images import *
