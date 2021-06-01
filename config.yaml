@@ -46,12 +46,20 @@ Cluster:
   reclass_values: [16]
   fn_merge: test_merged.tif
 
+Mask:
+  local_dir: /Users/lestes/Dropbox/projects/sentinel_lasso/external/data/
+  output_path: /Users/lestes/Dropbox/projects/sentinel_lasso/external/test/
+
 AWS:
+  profile: clark-automated-s3
   region: us-east-1
   access_key_id:
   secret_access_key:
-  bucket: activemapper
-  prefix: planet/
+  bucket: servir-public
+  prefix: geotiffs/peru/condensed/
+  suffix:
+    - 01.tif
+    - 02.tif
   prefix_label: labels_fix/
   score_prefix: classified-images/
 

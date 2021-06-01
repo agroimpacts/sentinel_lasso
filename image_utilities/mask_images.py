@@ -31,7 +31,7 @@ def mask_image(image_file, out_file=None, dtype='int16'):
 
     return masked_image
 
-def mask_images(image_files, dtype='int16'):
+def mask_images(image_files, output_path, dtype='int16'):
     """
     Read in and mask a list of input images and write to geotiff. The mask is
     created from union of all bands' NA values. The file names of the masked
@@ -39,18 +39,21 @@ def mask_images(image_files, dtype='int16'):
 
         Params:
             image_files (list): List of paths for local geotiffs
+            out_path (str): Output path for masked images
             dtype (str): Data type for masked image (default 'int16')
 
         Returns:
             The last image in the list in memory.
     """
+    masked_images = []
     for image in image_files:
         image_name = os.path.basename(image)
         masked_image_name = re.sub('.tif', '_masked.tif', image_name)
-        out_file = os.path.join(out_path, masked_image_name)
+        out_file = os.path.join(output_path, masked_image_name)
 
-        print('Processing {}'.format(image_name))
+        print('Masking {}'.format(image_name))
 
-        masked_image = mask_image(image, out_file, dtype)
+        masked_images.append(mask_image(image, out_file, dtype))
 
-        return masked_image
+    return masked_images
+
