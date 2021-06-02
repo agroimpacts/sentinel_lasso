@@ -1,6 +1,6 @@
 import yaml
 import click
-import sys
+# import sys
 import os
 import glob
 # sys.path.append('../image_utilities')
@@ -39,10 +39,8 @@ def execute(config_path, download, dtype):
 
     mask_images(local_files, out_path, dtype)
 
-    # print(masked_image)
-
 @click.command()
-@click.option('--config_path', default='config.yaml',
+@click.option('--config_path', default='../config.yaml',
               help='Directory of the config file')
 @click.option('--download', is_flag=True, help='Download files from S3 first?')
 @click.option('--dtype', default='int16',
