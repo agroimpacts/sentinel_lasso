@@ -58,8 +58,7 @@ AWS:
   bucket: servir-public
   prefix: geotiffs/peru/condensed/
   suffix:
-    - 01.tif
-    - 02.tif
+    - 0.tif
   prefix_label: labels_fix/
   score_prefix: classified-images/
 

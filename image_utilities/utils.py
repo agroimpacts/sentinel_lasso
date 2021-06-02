@@ -30,10 +30,13 @@ def aws_resource(resource, profile='default'):
             AWS resource
     """
 
-    session = boto3.session.Session(profile_name=profile)
-    resource = session.resource(resource)
+    if profile is not None:
+        session = boto3.session.Session(profile_name=profile)
+        _resource = session.resource(resource)
+    else:
+        _resource = boto3.resource(resource)
 
-    return resource
+    return _resource
 
 def list_objects(s3_resource, bucket, prefix, suffix=None):
     """
