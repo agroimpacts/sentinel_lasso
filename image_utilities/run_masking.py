@@ -14,8 +14,12 @@ def execute(config_path, download, dtype):
         params = yaml.safe_load(config)
 
     if download:
-        session = boto3.session.Session(profile_name=params['AWS']['profile'])
-        s3 = session.resource('s3')
+        profile = params['AWS']['profile']
+        if profile is not None:
+            session = boto3.session.Session(profile_name=profile)
+            s3 = session.resource('s3')
+        else:
+            s3 = boto3.resource('s3')
 
         keys = list_objects(
             s3, params['AWS']['bucket'], params['AWS']['prefix'],
